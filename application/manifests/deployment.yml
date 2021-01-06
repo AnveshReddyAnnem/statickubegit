@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: statickube-container
-        image: statickubeacr.azurecr.io/mystatickubeacrrepo:$(Build.BuildId)
+        image: statickubeacr.azurecr.io/statickubeacrrepo:$(Build.BuildId)
         resources:
           limits:
             memory: "128Mi"
