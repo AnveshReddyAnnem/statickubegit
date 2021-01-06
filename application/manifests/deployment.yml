@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mystatickube-deployment
+spec:
+  selector:
+    matchLabels:
+      app: mystatickube-pod
+  template:
+    metadata:
+      labels:
+        app: mystatickube-pod
+    spec:
+      containers:
+      - name: mystatickube-container
+        image: mystatickubeacr.azurecr.io/mystatickubeacrrepo:$(Build.BuildId)
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+    name: mystatickube-service
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 80 
+    selector:
+        app: mystatickube-pod
